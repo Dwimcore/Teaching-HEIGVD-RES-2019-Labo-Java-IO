@@ -68,7 +68,7 @@ public class Application implements IApplication {
        * Step 4 : process the quote files, by applying 2 transformations to their content
        *          (convert to uppercase and add line numbers)
        */
-     // app.processQuoteFiles();
+      app.processQuoteFiles();
       
     } catch (IOException ex) {
       LOG.log(Level.SEVERE, "Could not fetch quotes. {0}", ex.getMessage());
