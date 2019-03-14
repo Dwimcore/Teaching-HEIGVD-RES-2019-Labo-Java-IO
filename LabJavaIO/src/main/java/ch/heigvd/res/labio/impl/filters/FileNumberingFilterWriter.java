@@ -16,7 +16,10 @@ import java.util.logging.Logger;
  * @author Olivier Liechti
  */
 public class FileNumberingFilterWriter extends FilterWriter {
-
+  int cpt = 1;
+  String strLineNr = "";
+  boolean firstLine = true;
+  boolean lastwasr = false;
   private static final Logger LOG = Logger.getLogger(FileNumberingFilterWriter.class.getName());
 
   public FileNumberingFilterWriter(Writer out) {
@@ -25,17 +28,49 @@ public class FileNumberingFilterWriter extends FilterWriter {
 
   @Override
   public void write(String str, int off, int len) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    this.write(str.toCharArray(), off, len);
   }
 
   @Override
   public void write(char[] cbuf, int off, int len) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
+
+    if(firstLine) {
+      strLineNr = String.valueOf(cpt++);
+      super.out.write(strLineNr, 0, strLineNr.length());
+      super.out.write('\t');
+      firstLine = false;
+    }
+
+    for (int i = off; i < off + len; i++){
+      if(cbuf[i] == '\n' || (cbuf[i] == '\r')){
+        super.out.write(cbuf[i]);
+        if(!(i+1 < len && cbuf[i+1]=='\n')) {
+          strLineNr = String.valueOf(cpt++);
+          super.out.write(strLineNr, 0, strLineNr.length());
+          super.out.write('\t');
+        }
+      } else {
+        super.out.write(cbuf[i]);
+      }
+      lastwasr = (cbuf[i] == '\r');
+    }
   }
 
   @Override
   public void write(int c) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
+      if(firstLine) {
+        strLineNr = String.valueOf(cpt++);
+        super.out.write(strLineNr, 0, strLineNr.length());
+        super.out.write('\t');
+        firstLine = false;
+      }
+      super.out.write(c);
+      if(c == '\n'){
+        firstLine = true;
+      }
   }
 
 }
