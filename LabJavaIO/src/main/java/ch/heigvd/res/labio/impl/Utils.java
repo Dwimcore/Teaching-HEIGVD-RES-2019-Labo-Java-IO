@@ -29,20 +29,15 @@ public class Utils {
     boolean containsLineSep = true;
     List<String> t;
     String separator ="";
-    System.out.print("Le separateur est : ");
 
 
     if(lines.contains("\n\r")){
       separator = "\n\r";
-      System.out.println("win");
     } else if(lines.contains("\n")){
       separator = "\n";
-      System.out.println("nux");
     } else if(lines.contains("\r")){
       separator = "\r";
-      System.out.println("mac");
     } else {
-      System.out.println("aucun");
       containsLineSep = false;
     }
 
