@@ -143,7 +143,7 @@ public class Application implements IApplication {
       folderToSave += "/" + tag;
       dir = new File(folderToSave);
       if (! dir.exists()){
-        dir.mkdir();
+        dir.mkdirs();
       }
     }
 
